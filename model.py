@@ -8,12 +8,22 @@ def encode_image(path):
     return fr.face_encodings(img)[0]
 
 encodings = np.array(list(map(encode_image, os.listdir('images/'))))
-image = fr.load_image_file("images/muskan.png")
-image = fr.face_encodings(image)[0]
-print(fr.compare_faces(encodings, image))
-print(fr.face_distance(encodings, image))
+# image = fr.load_image_file("images/muskan.png")
+# image = fr.face_encodings(image)[0]
+# print(fr.compare_faces(encodings, image))
+# print(fr.face_distance(encodings, image))
 
-
+webcam = cv2.VideoCapture(1)
+while(True):
+    status, frame = webcam.read()
+    locations = fr.face_locations(frame)
+    locations = locations[0]
+    image = fr.face_encodings(frame)[0]
+    print(fr.compare_faces(encodings, image))
+    frame = cv2.rectangle(frame, (locations[1], locations[0]), (locations[3], locations[2]), (0,255,0), 2)
+    cv2.imshow("webcam", frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 # img = fr.load_image_file('images/shreya.jpeg')
 # locations = fr.face_locations(img)
 # locations = locations[0]
