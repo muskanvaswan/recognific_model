@@ -19,23 +19,28 @@ webcam = cv2.VideoCapture(0)
 if not webcam.read(0)[0]:
     webcam = cv2.VideoCapture(1)
 
-while(True):
+for i in range(10):
     status, frame = webcam.read()
 
-    locations = fr.face_locations(frame)
-    locations = locations[0]
+    try:
+        locations = fr.face_locations(frame)
+        locations = locations[0]
 
-    image = fr.face_encodings(frame)[0]
-    matches = fr.face_distance(encodings, image)
-    i = np.where(matches==min(matches))[0][0]
-    name = IMAGES_LIST[i].split('.')[0]
+        image = fr.face_encodings(frame)[0]
+        matches = fr.face_distance(encodings, image)
+        i = np.where(matches==min(matches))[0][0]
+        name = IMAGES_LIST[i].split('.')[0]
+    except:
+        locations = (0,0,0,0)
+        name =''
 
     frame = cv2.rectangle(frame, (locations[1], locations[0]), (locations[3], locations[2]), (0,255,0), 2)
     frame = cv2.putText(frame, name,  (locations[3], locations[2]+20), cv2.FONT_HERSHEY_SIMPLEX ,  1, (0,255,0), 2, cv2.LINE_AA)
 
     cv2.imshow("webcam", frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    cv2.waitKey(20)
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+        # break
 # img = fr.load_image_file('images/shreya.jpeg')
 # locations = fr.face_locations(img)
 # locations = locations[0]
