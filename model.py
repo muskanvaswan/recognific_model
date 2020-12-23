@@ -15,7 +15,10 @@ encodings = np.array(list(map(encode_image, IMAGES_LIST)))
 # print(fr.compare_faces(encodings, image))
 # print(fr.face_distance(encodings, image))
 
-webcam = cv2.VideoCapture(1)
+webcam = cv2.VideoCapture(0)
+if not webcam.read(0)[1]:
+    webcam = cv2.VideoCapture(1)
+
 while(True):
     status, frame = webcam.read()
 
