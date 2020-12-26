@@ -10,6 +10,6 @@ def reading_encodings(path):
     return d
 
 def csv_writter(ls):
-    with open('Attendance/sample.csv', 'w', newline='') as file:
+    with open('Attendance/sample.csv', 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(ls)
