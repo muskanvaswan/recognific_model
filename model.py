@@ -42,7 +42,7 @@ while(recognised==[]):
         frame = cv2.putText(frame, name,  (locations[3], locations[2]+20), cv2.FONT_HERSHEY_SIMPLEX ,  1, (0,255,0), 2, cv2.LINE_AA)
 
         cv2.imshow("webcam", frame)
-        cv2.waitKey(20)
+        cv2.waitKey(2)
 
 print(recognised)
 person = max(recognised, key = recognised.count)
