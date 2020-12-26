@@ -3,8 +3,8 @@ import numpy as np
 import cv2
 import os
 import sys
-
-from reader import reading_encodings
+import datetime
+from reader import reading_encodings, csv_writter
 
 IMAGES_LIST = os.listdir(f'images/{sys.argv[1]}/')
 encodings = reading_encodings(sys.argv[1])['encodings']
@@ -44,10 +44,9 @@ while(recognised==[]):
         cv2.imshow("webcam", frame)
         cv2.waitKey(2)
 
-print(recognised)
 person = max(recognised, key = recognised.count)
-print(person)
-
+Attendance = [person, str(datetime.datetime.now())]
+csv_writter(Attendance)
 
 # img = fr.load_image_file('images/shreya.jpeg')
 # locations = fr.face_locations(img)

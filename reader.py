@@ -1,5 +1,5 @@
 import pickle
-
+import csv
 
 def reading_encodings(path):
     # reading the data from the file
@@ -8,3 +8,8 @@ def reading_encodings(path):
     # reconstructing the data as dictionary
     d = pickle.loads(data)
     return d
+
+def csv_writter(ls):
+    with open('Attendance/sample.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(ls)
