@@ -2,11 +2,12 @@ import face_recognition as fr
 import numpy as np
 import cv2
 import os
+import sys
 
 from reader import reading_encodings
 
-IMAGES_LIST = os.listdir('images/')
-encodings = reading_encodings()['encodings']
+IMAGES_LIST = os.listdir(f'images/{sys.argv[1]}/')
+encodings = reading_encodings(sys.argv[1])['encodings']
 #encodings = np.array(list(map(encode_image, IMAGES_LIST)))
 # image = fr.load_image_file("images/muskan.png")
 # image = fr.face_encodings(image)[0]
