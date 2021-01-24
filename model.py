@@ -4,6 +4,7 @@ import cv2
 import os
 import sys
 import datetime
+
 from reader import reading_encodings, csv_writter
 
 IMAGES_LIST = os.listdir(f'images/{sys.argv[1]}/')
@@ -20,7 +21,7 @@ if not webcam.read(0)[0]:
 
 recognised = []
 
-while(recognised==[]):
+while(recognised == []):
     for i in range(10):
         status, frame = webcam.read()
 
@@ -30,21 +31,23 @@ while(recognised==[]):
 
             image = fr.face_encodings(frame)[0]
             matches = fr.face_distance(encodings, image)
-            i = np.where(matches==min(matches))[0][0]
+            i = np.where(matches == min(matches))[0][0]
             name = IMAGES_LIST[i].split('.')[0]
             recognised.append(name)
 
         except:
-            locations = (0,0,0,0)
-            name =''
+            locations = (0, 0, 0, 0)
+            name = ''
 
-        frame = cv2.rectangle(frame, (locations[1], locations[0]), (locations[3], locations[2]), (0,255,0), 2)
-        frame = cv2.putText(frame, name,  (locations[3], locations[2]+20), cv2.FONT_HERSHEY_SIMPLEX ,  1, (0,255,0), 2, cv2.LINE_AA)
+        frame = cv2.rectangle(frame, (locations[1], locations[0]),
+                              (locations[3], locations[2]), (0, 255, 0), 2)
+        frame = cv2.putText(frame, name,  (locations[3], locations[2]+20),
+                            cv2.FONT_HERSHEY_SIMPLEX,  1, (0, 255, 0), 2, cv2.LINE_AA)
 
         cv2.imshow("webcam", frame)
         cv2.waitKey(2)
 
-person = max(recognised, key = recognised.count)
+person = max(recognised, key=recognised.count)
 Attendance = [person, str(datetime.datetime.now())]
 csv_writter(Attendance)
 
