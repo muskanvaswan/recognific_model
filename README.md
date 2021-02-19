@@ -1,2 +1,2 @@
 # recognific_model
-This is the Ai model that implements creating an attendance sheet using OpenCV.
+This is the AI model that implements creating an attendance sheet using OpenCV.
